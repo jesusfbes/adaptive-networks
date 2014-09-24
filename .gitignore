@@ -1,4 +1,7 @@
 
+#Ignore inprogress directory
+inprogess/
+
 # Windows default autosave extension
 *.asv
 
