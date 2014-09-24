@@ -21,7 +21,7 @@ params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
 
 Tmax = 40000; % Number of iterations
 
-n_sim  = 1; % Number of simulations
+n_sim  = 1; % Number of simulations to average
 
 
 % We load the network
@@ -86,8 +86,11 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% RESULTS
+%% PLOT RESULTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+algorithms_plot = ...
+    cellfun(@get_algorithm_name_plot, algorithms, 'UniformOutput', 0);
 
 colors = 'rgbmcky';
 figure(1)
@@ -101,6 +104,7 @@ for a = 1:length(algorithms)
     
 end
 title('NETWORK MSD (dB)');
+legend(algorithms_plot);
 
 figure(2)
 for a = 1:length(algorithms)
@@ -111,6 +115,20 @@ for a = 1:length(algorithms)
     
 end
 title('NETWORK EMSE (dB)');
+legend(algorithms_plot);
 
+%% Combiners
+figure(3);
+
+node_to_show = 1;
+for a = 1:length(algorithms)
+   algorithm = algorithms{a};
+   c_to_plot = c.(algorithm);
+   
+   subplot(1,length(algorithms),a);
+   plot(squeeze(c_to_plot(:, node_to_show,:)).'); hold on;
+   title(['Combiners of ' algorithms_plot{a} ' for node' num2str(node_to_show)]);
+    
+end
 
 
