@@ -9,17 +9,10 @@ clc; clear; close all;
 addpath('functions');
 
 %% Parameters
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 FLAG_RETURN_W = 0;% FLAG if 1 returns all the evolution of w
 
-% Algorithms to execute
-algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_ls' };
-
-% Algorithm parameters
-params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
-
-params.le_atc_ls.L = 200; % Window size for combination estimation
 
 Tmax = 40000; % Number of iterations
 
@@ -31,12 +24,26 @@ load('inputs/example_basic.mat');
 
 
 
+% Algorithms to execute
+algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_ls' };
+
+% Algorithm parameters
+params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
+
+params.le_atc_ls.L = 200; % Window size for combination estimation
+
+
+% Error model parameters (no errors)
+error_param.mode = 'none';
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 n_nodes = size(A,1); % Number of nodes
 
 display(A);  % display Adjacency Matrix
 
-% Error model parameters (no errors)
-error_param.mode = 'none';
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
