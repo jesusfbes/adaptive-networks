@@ -138,6 +138,12 @@ for a = 1:length(algorithms)
             [msd_aux, e_aux, c_aux, w_aux] = ...
                 atc_nlms_acw(d,u,w0,mu,A,n_nodes,Tmax,nu,error_params, is_returned_w);
         
+        case 'le_atc_nlms_ls'
+            L = params.le_atc_ls.L ;
+            
+            [msd_aux, e_aux, c_aux, w_out] = ...
+                le_atc_nlms_ls(d, u, w0, mu, A, n_nodes, L, Tmax, error_params, is_returned_w);
+            
          
         otherwise
             error('Unknown diffusion algorithm.')

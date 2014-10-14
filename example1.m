@@ -14,14 +14,16 @@ addpath('functions');
 FLAG_RETURN_W = 0;% FLAG if 1 returns all the evolution of w
 
 % Algorithms to execute
-algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw' };
+algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_ls' };
 
 % Algorithm parameters
 params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
 
+params.le_atc_ls.L = 200; % Window size for combination estimation
+
 Tmax = 40000; % Number of iterations
 
-n_sim  = 1; % Number of simulations to average
+n_sim = 10; % Number of simulations to average
 
 
 % We load the network
@@ -53,6 +55,8 @@ for a = 1:length(algorithms)
 end
 
 for iter = 1:n_sim
+    
+    disp(['Simulation ']);
     
     [msd, errors, c_aux, w0, u, v, d] = sim_an( algorithms, Tmax, ...
         n_nodes, A, sigma2_u, snr, w0_1, w0_2, mu_filter, params, error_param,...
@@ -127,6 +131,7 @@ for a = 1:length(algorithms)
    
    subplot(1,length(algorithms),a);
    plot(squeeze(c_to_plot(:, node_to_show,:)).'); hold on;
+   axis([1 Tmax 0 1]);
    title(['Combiners of ' algorithms_plot{a} ' for node' num2str(node_to_show)]);
     
 end
