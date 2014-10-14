@@ -14,23 +14,24 @@ addpath('functions');
 FLAG_RETURN_W = 0;% FLAG if 1 returns all the evolution of w
 
 
-Tmax = 40000; % Number of iterations
+Tmax = 20000; % Number of iterations
 
-n_sim = 1; % Number of simulations to average
+n_sim = 2; % Number of simulations to average
 
 
 % We load the network
-load('inputs/example_basic.mat');
 
+load('inputs/example_complex.mat');
+%load('inputs/example_basic.mat');
 
 
 % Algorithms to execute
-algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_ls' };
+algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_nlms_ls' };
 
 % Algorithm parameters
 params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
 
-params.le_atc_ls.L = 200; % Window size for combination estimation
+params.le_atc_ls.L = 100; % Window size for combination estimation
 
 
 % Error model parameters (no errors)
@@ -63,7 +64,7 @@ end
 
 for iter = 1:n_sim
     
-    disp(['Simulation ']);
+    disp(['Simulation ' num2str(iter)]);
     
     [msd, errors, c_aux, w0, u, v, d] = sim_an( algorithms, Tmax, ...
         n_nodes, A, sigma2_u, snr, w0_1, w0_2, mu_filter, params, error_param,...
@@ -81,6 +82,7 @@ for iter = 1:n_sim
         
     end
     
+    disp(' ');
     
 end
 
