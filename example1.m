@@ -16,7 +16,7 @@ FLAG_RETURN_W = 0;% FLAG if 1 returns all the evolution of w
 
 Tmax = 40000; % Number of iterations
 
-n_sim = 10; % Number of simulations to average
+n_sim = 1; % Number of simulations to average
 
 
 % We load the network
