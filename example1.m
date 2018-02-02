@@ -39,8 +39,8 @@ algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw','atc_nlms_metropolis',...
 % Diffusion algorithm parameters
 params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
 
-params.datc_nlms_ls_rect.L = 100; % Window size for combination estimation
-params.datc_nlms_ls_rect.regul = 1e-12;
+% params.datc_nlms_ls_rect.L = 100; % Window size for combination estimation
+% params.datc_nlms_ls_rect.regul = 1e-12;
 
 params.datc_nlms_ls_exp.gamma = 0.99; % Window size for combination estimation
 params.datc_nlms_ls_exp.regul = 1e-10;

@@ -61,7 +61,7 @@ c_out = zeros(N, N, Tmax);
 
 e_comb = zeros(N, Tmax);
 
-
+ecomb_i = zeros(N,1);
 
 Nk = sum(A) - 1;
 
@@ -111,8 +111,11 @@ for i = M:Tmax-1
     % and for k : psi (n-1)
     Y_kl = (u_k * w_prev) .* (A - eye(N)).' + (u_k * psi_prev) .* eye(N);
    
-    ecomb_i = d(:, i) - diag(Y_kl);
-    
+    % Error computation
+    for k = 1:N % for each node k
+        ecomb_i(k) = d(k, i) - u_k(k,:) * w(:,k);
+    end
+   
     %% 1- ADAPT
     [y_k , e_k,  psi] = adapt_nlms(N , M , d(:,i), u_k, mu, psi_prev);
     
