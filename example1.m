@@ -9,30 +9,40 @@ clc; clear; close all;
 addpath('functions');
 
 %% Parameters
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-FLAG_RETURN_W = 0;% FLAG if 1 returns all the evolution of w
+% FLAG if 1 returns all the evolution of parameters vector w
+FLAG_RETURN_W = 0;
 
 
 Tmax = 20000; % Number of iterations
 
-n_sim = 2; % Number of simulations to average
+n_sim = 10; % Number of simulations to average
 
 
-% We load the network
-
+% We load the network and parameters of setup:
+% Adjacency matrix A
+% Number of nodes n_nodes
+% Number of tabs M
+% Vector to estimate (if has a change w0_1 and w0_2)
+% snr values
+% sigma2_u values
+% mu_filter
 load('inputs/example_complex.mat');
 %load('inputs/example_basic.mat');
 
 
-% Algorithms to execute
-algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw', 'le_atc_nlms_ls' };
+% Struct with the algorithms to execute
+algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw','atc_nlms_metropolis'};
 
-% Algorithm parameters
+% Diffusion algorithm parameters
 params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination
 
-params.le_atc_ls.L = 100; % Window size for combination estimation
+params.datc_nlms_ls_rect.L = 100; % Window size for combination estimation
+params.datc_nlms_ls_rect.regul = 1e-12;
 
+params.datc_nlms_ls_exp.gamma = 0.99; % Window size for combination estimation
+params.datc_nlms_ls_exp.regul = 1e-10;
 
 % Error model parameters (no errors)
 error_param.mode = 'none';
@@ -40,12 +50,7 @@ error_param.mode = 'none';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-n_nodes = size(A,1); % Number of nodes
-
 display(A);  % display Adjacency Matrix
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SIMULATION
@@ -65,7 +70,7 @@ end
 for iter = 1:n_sim
     
     disp(['Simulation ' num2str(iter)]);
-    
+    disp('-------------------------------------');
     [msd, errors, c_aux, w0, u, v, d] = sim_an( algorithms, Tmax, ...
         n_nodes, A, sigma2_u, snr, w0_1, w0_2, mu_filter, params, error_param,...
         FLAG_RETURN_W);
