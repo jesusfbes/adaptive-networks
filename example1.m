@@ -17,7 +17,7 @@ FLAG_RETURN_W = 0;
 
 Tmax = 20000; % Number of iterations
 
-n_sim = 10; % Number of simulations to average
+n_sim = 2; % Number of simulations to average
 
 
 % We load the network and parameters of setup:
@@ -33,7 +33,8 @@ load('inputs/example_complex.mat');
 
 
 % Struct with the algorithms to execute
-algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw','atc_nlms_metropolis'};
+algorithms = { 'atc_nlms_nocoop', 'atc_nlms_acw','atc_nlms_metropolis',...
+    'datc_nlms_ls_exp'};
 
 % Diffusion algorithm parameters
 params.atc_nlms_acw.nu = 0.01; % learning parameter for the combination

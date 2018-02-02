@@ -142,12 +142,12 @@ for a = 1:length(algorithms)
             [msd_aux, e_aux, c_aux, w_aux] = ...
                 atc_nlms_acw(d,u,w0,mu,A,n_nodes,Tmax,nu,error_params, is_returned_w);
         
-        case 'datc_nlms_ls_rect'
-            L = params.datc_nlms_ls_rect.L ;
-            regul = params.datc_nlms_ls_rect.regul;
-            
-            [msd_aux, e_aux, c_aux, w_out] = ...
-                datc_nlms_ls_rect(d, u, w0, mu, A, n_nodes, L, regul, Tmax, error_params, is_returned_w);
+%         case 'datc_nlms_ls_rect'
+%             L = params.datc_nlms_ls_rect.L ;
+%             regul = params.datc_nlms_ls_rect.regul;
+%             
+%             [msd_aux, e_aux, c_aux, w_out] = ...
+%                 datc_nlms_ls_rect(d, u, w0, mu, A, n_nodes, L, regul, Tmax, error_params, is_returned_w);
             
          case 'datc_nlms_ls_exp'
             gamma = params.datc_nlms_ls_exp.gamma ;
