@@ -8,7 +8,7 @@ At this moment there are four implemented algorithms :
 * ATC but with no cooperation
 * ATC with Metropolis combination weights [1]
 * ATC with Adaptive Combination Weights [2]
-* Local Estimation ATC with LS adaptive Combiners [3]
+* Decoupled ATC for Estimation with LS adaptive Combiners [3]
 
 
 ## Example of use
